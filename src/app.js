@@ -62,4 +62,17 @@ app.patch('/user/:id', async(req, res) => {
     }
 })
 
+app.delete('/user/:id', async(req, res) => {
+    try {
+        const user = await User.findByIdAndDelete(req.params.id)
+
+        if (!user) {
+            return res.status(404).send()
+        }
+        res.send(user)
+    } catch (err) {
+        res.status(500).send()
+    }
+})
+
 app.listen(port)
